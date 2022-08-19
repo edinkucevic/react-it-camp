@@ -24,8 +24,10 @@
 
 // export default App;
 
-// import "./App.css";
-// import React from "react";
+import "./App.css";
+import React, { useState } from "react";
+import TeamCard from "./components/TeamCard/TeamCard";
+
 // import Increamenter from "./components/Increamenter/Increamenter";
 
 // export default function App() {
@@ -72,87 +74,93 @@
 // }
 
 
-import "./App.css";
-import React, { useEffect, useState } from "react";
+// 
 
- export default function App() {
-
-  // const [name , setName] = React.useState("")
-  // const [email , setEmail] = React.useState("")
-  // const [hobi , setHobi] = React.useState("")
-  // const [password, setPassword] = React.useState("")
-
-  const [formValues , setFormValues] = useState({
-    name: "" ,
-    email: "",
-    hobi: "",
-    password: "",
-    
-  })
+// const DATA = [
+//   "Prva recenica",
+//   "Druga recenica",
+//   "Treca Recenica",
+//   "Cetvrta recenica",
+//   "....",
+//   "Stota recenica",
+// ];
 
 
+// export default function App()  {
+  
+//   const [array , setArray] = useState (DATA);
 
-    return(
-      <div className="card-container">
-      <form onSubmit={(e) => { 
-      e.preventDefault();
-      console.log(formValues)
-      console.log(`NAME: ${formValues.name} EMAIL: ${formValues.email} HOBI: ${formValues.hobi} PASSWORD: ${formValues.password}`)
-      }}>
-        <label htmlFor="html">Name</label>
-        <input 
-        type="text" 
-        id="html"
-        name="fav_language"
-        value={formValues.name}
-        onChange={(event) => setFormValues(prev => ({
-           
-          ...prev,
-          name: event.target.value,
-        }))
-      }
-        />
-        <br />
-        <label htmlFor="css">email</label>
-        <input 
-        type="text"
-        id="css"
-        name="fav_language"
-         value={formValues.email}
-         onChange={(event) => setFormValues(prev => ({
-           
-          ...prev,
-          name: event.target.value,
-        }))
-      }
-         />
-        <br />
-        <label htmlFor="javascript">Hobi</label>
-        <input 
-        type="text"
-        id="javascript"
-        name="fav_language" 
-        value={formValues.hobi}    
-        onChange={(event) => setFormValues(prev =>({
-          ...prev,
-          hobi: event.target.value,
-          
+//   const generateNewWord = () => Math.random().toString(36).slice(2, 7);
 
-          }
-        ))}   
-         />
-        <br />
-        <label htmlFor="password">sifra</label>
-        <input 
-        type="text"
-        id="password"
-        name="fav_language" 
-        // value={password}
-        // onChange={(event) => setPassword(event.target.value)}
-        />
-        <br />
-        <input type="submit" defaultValue="Submit" />
-      </form>
-    </div>
-    );
-}
+//   const reverseArray = () => {
+//       const _array = [...array]
+//       const reversed = _array.reverse(); // OVAKO SE PRAVI KOPIJA NIZA
+//       setArray(reversed);
+
+//   }
+
+
+//   return (
+//     <div className="card-container">
+//       <button onClick={() => setArray(prev => [generateNewWord(), ...prev])}>
+//         Dodaj random recenicu
+//       </button>
+//       <button onClick = {reverseArray}>REVERSE recenice</button>
+//       <h4>Recenice iz niza</h4>
+//       <ul>
+//         {array.map((el) => (
+//           <li key = {el} > {el}</li>
+//         ))}
+//       </ul>
+      
+//       <div>radi l' ovo</div>
+//     </div>
+//   )
+
+// }
+const favoriteTeams = [
+  { id: 0, name: "Arsenal", points: 6 },
+  { id: 1, name: "Man. City", points: 6 },
+  { id: 2, name: "Man. United", points: 0 },
+  { id: 3, name: "Liverpool", points: 2 },
+  { id: 4, name: "Novi Pazar", points: 9 },
+  { id: 5, name: "Partizan", points: 5 },
+
+]
+
+export default function App()  {
+
+  const [teams , setTeams] = useState(favoriteTeams);
+
+  const deleteTeam = (id) => {
+  const newTeams = teams.filter((team) => team.id !== id);
+  setTeams(newTeams)
+  }
+
+  return <div className="card-container">
+    <button
+    onClick={() => 
+    setTeams((prev) => [
+      ...prev,
+      {
+        id: Math.random(),
+        name: "Novi Tim",
+        points: 4,
+      },
+    ])
+    }
+    ></button>
+
+    {teams.map((team) => (
+      <TeamCard
+      key={team.id}
+      name={team.name}
+      points={team.points}
+      onDeleteTeam ={() => deleteTeam(team.id)}
+      />
+      
+    ))}
+  </div>
+
+
+};
