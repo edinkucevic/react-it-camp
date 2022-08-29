@@ -1,0 +1,17 @@
+.post-item {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center;
+    align-items: center; */
+    width: 80%;
+    background-color: rgb(222, 255, 132);
+    border: solid 2px black;
+    margin-top: 10px;
+    transition: 0.3s;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+  .post-item:hover {
+    background-color: black;
+    color: rgb(222, 255, 132);
+  }
